@@ -1,20 +1,16 @@
-let nameArr: string[] = [];
-let saldoArr: number[] = [];
-
-function pushNameArr(name: string) {
-  nameArr.push(name);
+function pushNameArr() {
+  let nameAccount = document.querySelector("input") as HTMLInputElement;
+  let nameAccountValue = nameAccount.value;
+  return nameAccountValue;
 }
 function pushSaldoArr() {
   let saldo = document.querySelector("#saldo") as HTMLInputElement;
   let numberSaldo = Number(saldo.value);
-  saldoArr.push(numberSaldo);
+  return numberSaldo;
 }
-let nameAccount = document.querySelector("input") as HTMLInputElement;
-let nameAccountValue = nameAccount.value;
-console.log(nameAccountValue);
 
 let btnNameAccount = document.querySelector("#addName");
-btnNameAccount?.addEventListener("click", pushSaldoArr);
+btnNameAccount?.addEventListener("click", pushNameArr);
 
 let btnAddSaldo = document.querySelector("#addSaldo");
 btnAddSaldo?.addEventListener("click", pushSaldoArr);
@@ -28,16 +24,22 @@ class Account {
     this.name = name;
   }
 
+  showAccount() {
+    alert("Benvenuto : " + this.name);
+  }
+
   showBalanceInt() {
     alert("Il tuo saldo è :" + this.balanceInit);
   }
 
   deposit(amount: number) {
     this.balanceInit += amount;
+    return this.balanceInit;
   }
 
   withDraw(amount: number) {
     this.balanceInit = this.balanceInit - amount;
+    return this.balanceInit;
   }
 }
 
@@ -50,7 +52,14 @@ class MotherAccount extends Account {
   }
 }
 
-let newAccount = new Account(saldoArr[0], nameArr[0]);
+let newAccount = new Account(numberSaldo, nameAccountValue);
+
+let btnShowSaldo = document.querySelector("#showSaldo");
+btnShowSaldo?.addEventListener("click", newAccount.showBalanceInt);
+
+let btnPrelievo = document.querySelector("#prelievo");
+let newAccountPrelievo = () => newAccount.withDraw;
+btnPrelievo?.addEventListener("click", newAccountPrelievo);
 
 // let sonAccount = new SonAccount(1000);
 
