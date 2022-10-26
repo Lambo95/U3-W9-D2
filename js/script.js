@@ -1,18 +1,18 @@
 "use strict";
-function pushNameArr() {
+function setName() {
     let nameAccount = document.querySelector("input");
     let nameAccountValue = nameAccount.value;
     return nameAccountValue;
 }
-function pushSaldoArr() {
+function setSaldo() {
     let saldo = document.querySelector("#saldo");
     let numberSaldo = Number(saldo.value);
     return numberSaldo;
 }
 let btnNameAccount = document.querySelector("#addName");
-btnNameAccount === null || btnNameAccount === void 0 ? void 0 : btnNameAccount.addEventListener("click", pushNameArr);
+btnNameAccount === null || btnNameAccount === void 0 ? void 0 : btnNameAccount.addEventListener("click", setName);
 let btnAddSaldo = document.querySelector("#addSaldo");
-btnAddSaldo === null || btnAddSaldo === void 0 ? void 0 : btnAddSaldo.addEventListener("click", pushSaldoArr);
+btnAddSaldo === null || btnAddSaldo === void 0 ? void 0 : btnAddSaldo.addEventListener("click", setSaldo);
 class Account {
     constructor(balanceInit, name) {
         this.balanceInit = balanceInit;
@@ -41,7 +41,7 @@ class MotherAccount extends Account {
         this.balanceInit += addInterest;
     }
 }
-let newAccount = new Account(numberSaldo, nameAccountValue);
+let newAccount = new Account(setSaldo, setName);
 let btnShowSaldo = document.querySelector("#showSaldo");
 btnShowSaldo === null || btnShowSaldo === void 0 ? void 0 : btnShowSaldo.addEventListener("click", newAccount.showBalanceInt);
 let btnPrelievo = document.querySelector("#prelievo");

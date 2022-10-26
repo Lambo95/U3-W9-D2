@@ -1,23 +1,6 @@
-function pushNameArr() {
-  let nameAccount = document.querySelector("input") as HTMLInputElement;
-  let nameAccountValue = nameAccount.value;
-  return nameAccountValue;
-}
-function pushSaldoArr() {
-  let saldo = document.querySelector("#saldo") as HTMLInputElement;
-  let numberSaldo = Number(saldo.value);
-  return numberSaldo;
-}
-
-let btnNameAccount = document.querySelector("#addName");
-btnNameAccount?.addEventListener("click", pushNameArr);
-
-let btnAddSaldo = document.querySelector("#addSaldo");
-btnAddSaldo?.addEventListener("click", pushSaldoArr);
-
 class Account {
-  name: string;
-  balanceInit: number;
+  private name: string;
+  private balanceInit: number;
 
   constructor(balanceInit: number, name: string) {
     this.balanceInit = balanceInit;
@@ -39,7 +22,14 @@ class Account {
 
   withDraw(amount: number) {
     this.balanceInit = this.balanceInit - amount;
-    return this.balanceInit;
+  }
+
+  public set nameAccount(params: string) {
+    this.name = params;
+  }
+
+  public get nameAccount(): string {
+    return this.name;
   }
 }
 
@@ -52,15 +42,32 @@ class MotherAccount extends Account {
   }
 }
 
-let newAccount = new Account(numberSaldo, nameAccountValue);
+function setName() {
+  let nameAccount = document.querySelector("input") as HTMLInputElement;
+  let nameAccountValue = nameAccount.value;
+  return nameAccountValue;
+}
+function setSaldo() {
+  let saldo = document.querySelector("#saldo") as HTMLInputElement;
+  let numberSaldo = Number(saldo.value);
+  return numberSaldo;
+}
+
+let btnNameAccount = document.querySelector("#addName");
+btnNameAccount?.addEventListener("click", setName);
+
+let btnAddSaldo = document.querySelector("#addSaldo");
+btnAddSaldo?.addEventListener("click", setSaldo);
+
+let newAccount = new Account(setSaldo(), setName());
 
 let btnShowSaldo = document.querySelector("#showSaldo");
 btnShowSaldo?.addEventListener("click", newAccount.showBalanceInt);
 
 let btnPrelievo = document.querySelector("#prelievo");
-let newAccountPrelievo = () => newAccount.withDraw;
+let newAccountPrelievo = () => newAccount.withDraw(setSaldo());
+// btnPrelievo?.addEventListener("click", newAccount.withDraw(25));
 btnPrelievo?.addEventListener("click", newAccountPrelievo);
-
 // let sonAccount = new SonAccount(1000);
 
 // sonAccount.deposit(200);
